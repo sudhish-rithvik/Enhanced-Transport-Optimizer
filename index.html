@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu Smart Transport Optimization System - Government Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1 class="logo">TN Smart Transport</h1>
+                    <span class="logo-subtitle">Government of Tamil Nadu - Transport Department</span>
+                </div>
+                <div class="header-status">
+                    <div class="datetime-display">
+                        <div class="current-date" id="current-date">Saturday, August 30, 2025</div>
+                        <div class="current-time" id="current-time">4:34 PM IST</div>
+                    </div>
+                    <div class="system-status" id="system-status">
+                        <span class="status-indicator online"></span>
+                        <span>System Online</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-section="dashboard">Live Dashboard</button>
+                <button class="nav-btn" data-section="analytics">Predictive Analytics</button>
+                <button class="nav-btn" data-section="scheduler">Next-Day Scheduler</button>
+                <button class="nav-btn" data-section="recommendations">Smart Recommendations</button>
+                <button class="nav-btn" data-section="external">External Factors</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Live Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h2>Real-Time Transport Dashboard</h2>
+                    <p class="section-subtitle">Live monitoring of bus operations with predictive insights</p>
+                </div>
+
+                <!-- Real-time Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card primary">
+                        <div class="metric-header">
+                            <span class="metric-icon">🚌</span>
+                            <span class="metric-title">Today's Performance</span>
+                            <span class="metric-trend up" id="performance-trend">+5.2%</span>
+                        </div>
+                        <div class="metric-value" id="today-performance">87.3%</div>
+                        <div class="metric-subtitle">vs Predicted</div>
+                    </div>
+                    
+                    <div class="metric-card secondary">
+                        <div class="metric-header">
+                            <span class="metric-icon">🚍</span>
+                            <span class="metric-title">Active Buses</span>
+                            <span class="live-indicator">LIVE</span>
+                        </div>
+                        <div class="metric-value" id="active-buses">45</div>
+                        <div class="metric-subtitle">Across 3 routes</div>
+                    </div>
+                    
+                    <div class="metric-card success">
+                        <div class="metric-header">
+                            <span class="metric-icon">👥</span>
+                            <span class="metric-title">Passengers Served</span>
+                            <span class="metric-trend up" id="passenger-trend">+12.8%</span>
+                        </div>
+                        <div class="metric-value" id="passengers-served">8,247</div>
+                        <div class="metric-subtitle">Today so far</div>
+                    </div>
+                    
+                    <div class="metric-card warning">
+                        <div class="metric-header">
+                            <span class="metric-icon">⚡</span>
+                            <span class="metric-title">Next Update In</span>
+                            <span class="auto-refresh" id="next-update">00:23</span>
+                        </div>
+                        <div class="metric-value" id="auto-status">AUTO</div>
+                        <div class="metric-subtitle">Continuous updates</div>
+                    </div>
+                </div>
+
+                <!-- Tomorrow's Preview -->
+                <div class="tomorrow-preview">
+                    <h3>Tomorrow's Schedule Preview</h3>
+                    <div class="preview-grid">
+                        <div class="preview-card weather-alert">
+                            <div class="alert-header">
+                                <span class="alert-icon">🌧️</span>
+                                <span class="alert-title">Weather Impact</span>
+                            </div>
+                            <div class="alert-content">
+                                <div class="weather-info">Light Rain Expected</div>
+                                <div class="impact-multiplier">+15% Demand Adjustment</div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-card festival-alert">
+                            <div class="alert-header">
+                                <span class="alert-icon">🎉</span>
+                                <span class="alert-title">Festival Alert</span>
+                            </div>
+                            <div class="alert-content">
+                                <div class="festival-info">Vinayaka Chaturthi in 2 days</div>
+                                <div class="impact-multiplier">+60% Expected Impact</div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-card schedule-preview">
+                            <div class="alert-header">
+                                <span class="alert-icon">📊</span>
+                                <span class="alert-title">Recommended Buses</span>
+                            </div>
+                            <div class="alert-content">
+                                <div class="buses-recommended" id="tomorrow-buses">52</div>
+                                <div class="impact-multiplier">+7 from today</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Route Status -->
+                <div class="route-status-section">
+                    <h3>Live Route Performance</h3>
+                    <div class="route-cards">
+                        <div class="route-card" data-route="tp_pc">
+                            <div class="route-header">
+                                <span class="route-name">Tiruppur ↔ Pollachi</span>
+                                <span class="route-status active">ACTIVE</span>
+                            </div>
+                            <div class="route-metrics">
+                                <div class="route-metric">
+                                    <span class="metric-label">Current Load</span>
+                                    <span class="metric-value" id="pc-load">78%</span>
+                                </div>
+                                <div class="route-metric">
+                                    <span class="metric-label">Prediction Accuracy</span>
+                                    <span class="metric-value" id="pc-accuracy">89%</span>
+                                </div>
+                                <div class="route-metric">
+                                    <span class="metric-label">Next Bus</span>
+                                    <span class="metric-value" id="pc-next">12 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="route-card" data-route="tp_cb">
+                            <div class="route-header">
+                                <span class="route-name">Tiruppur ↔ Coimbatore</span>
+                                <span class="route-status active">ACTIVE</span>
+                            </div>
+                            <div class="route-metrics">
+                                <div class="route-metric">
+                                    <span class="metric-label">Current Load</span>
+                                    <span class="metric-value" id="cb-load">65%</span>
+                                </div>
+                                <div class="route-metric">
+                                    <span class="metric-label">Prediction Accuracy</span>
+                                    <span class="metric-value" id="cb-accuracy">92%</span>
+                                </div>
+                                <div class="route-metric">
+                                    <span class="metric-label">Next Bus</span>
+                                    <span class="metric-value" id="cb-next">8 min</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="route-card" data-route="tp_sl">
+                            <div class="route-header">
+                                <span class="route-name">Tiruppur ↔ Salem</span>
+                                <span class="route-status active">ACTIVE</span>
+                            </div>
+                            <div class="route-metrics">
+                                <div class="route-metric">
+                                    <span class="metric-label">Current Load</span>
+                                    <span class="metric-value" id="sl-load">82%</span>
+                                </div>
+                                <div class="route-metric">
+                                    <span class="metric-label">Prediction Accuracy</span>
+                                    <span class="metric-value" id="sl-accuracy">85%</span>
+                                </div>
+                                <div class="route-metric">
+                                    <span class="metric-label">Next Bus</span>
+                                    <span class="metric-value" id="sl-next">15 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Predictive Analytics Section -->
+            <section id="analytics" class="section">
+                <div class="section-header">
+                    <h2>Predictive Analytics Dashboard</h2>
+                    <p class="section-subtitle">Advanced demand forecasting with multi-factor analysis</p>
+                </div>
+
+                <div class="analytics-controls">
+                    <select id="analytics-route" class="form-control">
+                        <option value="tp_pc">Tiruppur to Pollachi</option>
+                        <option value="tp_cb">Tiruppur to Coimbatore</option>
+                        <option value="tp_sl">Tiruppur to Salem</option>
+                    </select>
+                </div>
+
+                <div class="analytics-grid">
+                    <!-- Today vs Tomorrow Comparison -->
+                    <div class="chart-card large">
+                        <div class="chart-header">
+                            <h3>Today vs Tomorrow Demand Comparison</h3>
+                            <div class="confidence-score">
+                                <span>Confidence: </span>
+                                <span class="score" id="confidence-score">87.3%</span>
+                            </div>
+                        </div>
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="comparison-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Weather Impact Visualization -->
+                    <div class="chart-card">
+                        <h3>Weather Impact Analysis</h3>
+                        <div class="weather-factors">
+                            <div class="factor">
+                                <span class="factor-label">Temperature</span>
+                                <div class="factor-bar">
+                                    <div class="factor-fill" style="width: 65%"></div>
+                                </div>
+                                <span class="factor-value">29°C</span>
+                            </div>
+                            <div class="factor">
+                                <span class="factor-label">Rainfall</span>
+                                <div class="factor-bar">
+                                    <div class="factor-fill warning" style="width: 40%"></div>
+                                </div>
+                                <span class="factor-value">8mm</span>
+                            </div>
+                            <div class="factor">
+                                <span class="factor-label">Humidity</span>
+                                <div class="factor-bar">
+                                    <div class="factor-fill" style="width: 78%"></div>
+                                </div>
+                                <span class="factor-value">78%</span>
+                            </div>
+                        </div>
+                        <div class="weather-impact">
+                            <div class="impact-summary">
+                                <span class="impact-label">Overall Impact:</span>
+                                <span class="impact-value positive">+15% Demand</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Festival & Market Day Impact -->
+                    <div class="chart-card">
+                        <h3>Festival & Market Day Impact</h3>
+                        <div class="impact-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">Sep 1</div>
+                                <div class="timeline-event">Vinayaka Chaturthi</div>
+                                <div class="timeline-impact high">+60%</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">Sep 17</div>
+                                <div class="timeline-event">Onam</div>
+                                <div class="timeline-impact medium">+40%</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">Oct 2</div>
+                                <div class="timeline-event">Gandhi Jayanti</div>
+                                <div class="timeline-impact medium">+30%</div>
+                            </div>
+                        </div>
+                        <div class="market-days">
+                            <h4>Market Days This Week</h4>
+                            <div class="market-indicators">
+                                <span class="market-day active">Mon</span>
+                                <span class="market-day">Tue</span>
+                                <span class="market-day">Wed</span>
+                                <span class="market-day active">Thu</span>
+                                <span class="market-day">Fri</span>
+                                <span class="market-day active">Sat</span>
+                                <span class="market-day">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Historical Accuracy Trends -->
+                <div class="accuracy-section">
+                    <h3>Prediction Accuracy Trends</h3>
+                    <div class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="accuracy-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next-Day Scheduler Section -->
+            <section id="scheduler" class="section">
+                <div class="section-header">
+                    <h2>Next-Day Smart Scheduler</h2>
+                    <p class="section-subtitle">AI-powered bus allocation with environmental factor optimization</p>
+                </div>
+
+                <!-- Tomorrow's Complete Schedule -->
+                <div class="schedule-overview">
+                    <h3>Tomorrow's Optimized Schedule</h3>
+                    <div class="schedule-grid">
+                        <div class="schedule-card">
+                            <div class="schedule-header">
+                                <span class="schedule-time">05:00 - 09:00</span>
+                                <span class="schedule-period">Morning Peak</span>
+                            </div>
+                            <div class="schedule-details">
+                                <div class="schedule-metric">
+                                    <span>Buses Required:</span>
+                                    <span class="metric-value" id="morning-buses">28</span>
+                                </div>
+                                <div class="schedule-metric">
+                                    <span>Frequency:</span>
+                                    <span class="metric-value">Every 12 min</span>
+                                </div>
+                                <div class="schedule-metric">
+                                    <span>Weather Adjust:</span>
+                                    <span class="metric-value weather">+3 buses</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-card">
+                            <div class="schedule-header">
+                                <span class="schedule-time">09:00 - 17:00</span>
+                                <span class="schedule-period">Daytime</span>
+                            </div>
+                            <div class="schedule-details">
+                                <div class="schedule-metric">
+                                    <span>Buses Required:</span>
+                                    <span class="metric-value" id="day-buses">18</span>
+                                </div>
+                                <div class="schedule-metric">
+                                    <span>Frequency:</span>
+                                    <span class="metric-value">Every 25 min</span>
+                                </div>
+                                <div class="schedule-metric">
+                                    <span>Weather Adjust:</span>
+                                    <span class="metric-value weather">+2 buses</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="schedule-card">
+                            <div class="schedule-header">
+                                <span class="schedule-time">17:00 - 22:00</span>
+                                <span class="schedule-period">Evening Peak</span>
+                            </div>
+                            <div class="schedule-details">
+                                <div class="schedule-metric">
+                                    <span>Buses Required:</span>
+                                    <span class="metric-value" id="evening-buses">32</span>
+                                </div>
+                                <div class="schedule-metric">
+                                    <span>Frequency:</span>
+                                    <span class="metric-value">Every 10 min</span>
+                                </div>
+                                <div class="schedule-metric">
+                                    <span>Weather Adjust:</span>
+                                    <span class="metric-value weather">+2 buses</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Allocation Chart -->
+                <div class="allocation-section">
+                    <h3>Dynamic Bus Allocation</h3>
+                    <div class="chart-container" style="position: relative; height: 350px;">
+                        <canvas id="allocation-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Cost Optimization -->
+                <div class="cost-optimization">
+                    <h3>Cost vs Service Level Optimization</h3>
+                    <div class="optimization-grid">
+                        <div class="cost-card">
+                            <div class="cost-header">
+                                <span class="cost-icon">💰</span>
+                                <span class="cost-title">Operational Cost</span>
+                            </div>
+                            <div class="cost-value">₹2,45,000</div>
+                            <div class="cost-change down">-8.5% from today</div>
+                        </div>
+                        
+                        <div class="cost-card">
+                            <div class="cost-header">
+                                <span class="cost-icon">⚡</span>
+                                <span class="cost-title">Fuel Efficiency</span>
+                            </div>
+                            <div class="cost-value">15.8 km/l</div>
+                            <div class="cost-change up">+2.3% improvement</div>
+                        </div>
+                        
+                        <div class="cost-card">
+                            <div class="cost-header">
+                                <span class="cost-icon">🌱</span>
+                                <span class="cost-title">Carbon Footprint</span>
+                            </div>
+                            <div class="cost-value">1,250 kg</div>
+                            <div class="cost-change down">-12% reduction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval Interface -->
+                <div class="approval-section">
+                    <h3>Schedule Approval</h3>
+                    <div class="approval-controls">
+                        <button class="btn btn--secondary" id="modify-schedule">Modify Schedule</button>
+                        <button class="btn btn--primary" id="approve-schedule">Approve & Deploy</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Smart Recommendations Section -->
+            <section id="recommendations" class="section">
+                <div class="section-header">
+                    <h2>AI-Powered Smart Recommendations</h2>
+                    <p class="section-subtitle">Intelligent insights for optimal transport efficiency</p>
+                </div>
+
+                <div class="recommendations-grid">
+                    <!-- Frequency Optimization -->
+                    <div class="recommendation-card priority">
+                        <div class="recommendation-header">
+                            <span class="rec-icon">🚀</span>
+                            <span class="rec-title">High Priority</span>
+                            <span class="rec-impact">+₹15,000 savings</span>
+                        </div>
+                        <div class="recommendation-content">
+                            <h4>Increase Evening Peak Frequency</h4>
+                            <p>Weather forecast indicates 15% increase in demand. Recommend increasing frequency from 15min to 10min during 17:00-19:00.</p>
+                            <div class="recommendation-metrics">
+                                <span class="metric">Expected Demand: +650 passengers</span>
+                                <span class="metric">Additional Buses: +4</span>
+                                <span class="metric">Revenue Impact: +₹22,000</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-actions">
+                            <button class="btn btn--sm btn--primary">Implement</button>
+                            <button class="btn btn--sm btn--outline">Review</button>
+                        </div>
+                    </div>
+
+                    <!-- Weather Adjustment -->
+                    <div class="recommendation-card medium">
+                        <div class="recommendation-header">
+                            <span class="rec-icon">🌧️</span>
+                            <span class="rec-title">Weather Adjustment</span>
+                            <span class="rec-impact">+₹8,500 savings</span>
+                        </div>
+                        <div class="recommendation-content">
+                            <h4>Rain Day Protocol Activation</h4>
+                            <p>Light rain expected tomorrow. Activate rain day protocol with additional buses on standby and covered bus stops preparation.</p>
+                            <div class="recommendation-metrics">
+                                <span class="metric">Standby Buses: +3</span>
+                                <span class="metric">Service Reliability: +25%</span>
+                                <span class="metric">Passenger Satisfaction: +18%</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-actions">
+                            <button class="btn btn--sm btn--primary">Activate</button>
+                            <button class="btn btn--sm btn--outline">Schedule</button>
+                        </div>
+                    </div>
+
+                    <!-- Route Optimization -->
+                    <div class="recommendation-card low">
+                        <div class="recommendation-header">
+                            <span class="rec-icon">🛣️</span>
+                            <span class="rec-title">Route Efficiency</span>
+                            <span class="rec-impact">+₹5,200 savings</span>
+                        </div>
+                        <div class="recommendation-content">
+                            <h4>Alternative Route During Peak</h4>
+                            <p>Traffic data suggests using alternate route via NH-544 during morning peak hours can reduce travel time by 8 minutes.</p>
+                            <div class="recommendation-metrics">
+                                <span class="metric">Time Saved: 8 min/trip</span>
+                                <span class="metric">Fuel Saved: 12L/day</span>
+                                <span class="metric">Efficiency: +15%</span>
+                            </div>
+                        </div>
+                        <div class="recommendation-actions">
+                            <button class="btn btn--sm btn--primary">Test Route</button>
+                            <button class="btn btn--sm btn--outline">Analyze</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Insights Panel -->
+                <div class="ai-insights">
+                    <h3>AI-Generated Insights</h3>
+                    <div class="insights-list">
+                        <div class="insight-item">
+                            <span class="insight-icon">💡</span>
+                            <div class="insight-content">
+                                <h4>Pattern Recognition</h4>
+                                <p>Tuesday demand consistently 12% higher than Monday across all routes. Consider permanent schedule adjustment.</p>
+                            </div>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-icon">📈</span>
+                            <div class="insight-content">
+                                <h4>Seasonal Trend</h4>
+                                <p>August-September shows 18% increase in rural route usage. Plan capacity expansion for harvest season.</p>
+                            </div>
+                        </div>
+                        <div class="insight-item">
+                            <span class="insight-icon">⚡</span>
+                            <div class="insight-content">
+                                <h4>Efficiency Opportunity</h4>
+                                <p>Salem route showing underutilization during 2-4 PM. Consider temporary frequency reduction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- External Factors Section -->
+            <section id="external" class="section">
+                <div class="section-header">
+                    <h2>External Factors Dashboard</h2>
+                    <p class="section-subtitle">Real-time integration of weather, festivals, and market conditions</p>
+                </div>
+
+                <div class="external-grid">
+                    <!-- Weather Integration -->
+                    <div class="external-card weather">
+                        <div class="card-header">
+                            <span class="card-icon">🌦️</span>
+                            <span class="card-title">Weather Integration</span>
+                            <span class="update-time">Updated 5 min ago</span>
+                        </div>
+                        <div class="weather-current">
+                            <div class="weather-main">
+                                <div class="weather-temp">29°C</div>
+                                <div class="weather-condition">Light Rain</div>
+                            </div>
+                            <div class="weather-details">
+                                <div class="weather-metric">
+                                    <span>Humidity:</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="weather-metric">
+                                    <span>Rainfall:</span>
+                                    <span>8mm/hr</span>
+                                </div>
+                                <div class="weather-metric">
+                                    <span>Visibility:</span>
+                                    <span>6km</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weather-forecast">
+                            <h4>24-Hour Forecast</h4>
+                            <div class="forecast-timeline">
+                                <div class="forecast-hour">
+                                    <span class="hour">6PM</span>
+                                    <span class="icon">🌧️</span>
+                                    <span class="temp">27°</span>
+                                </div>
+                                <div class="forecast-hour">
+                                    <span class="hour">9PM</span>
+                                    <span class="icon">⛅</span>
+                                    <span class="temp">25°</span>
+                                </div>
+                                <div class="forecast-hour">
+                                    <span class="hour">12AM</span>
+                                    <span class="icon">🌙</span>
+                                    <span class="temp">23°</span>
+                                </div>
+                                <div class="forecast-hour">
+                                    <span class="hour">6AM</span>
+                                    <span class="icon">🌅</span>
+                                    <span class="temp">22°</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Festival Calendar -->
+                    <div class="external-card festival">
+                        <div class="card-header">
+                            <span class="card-icon">🎉</span>
+                            <span class="card-title">Tamil Nadu Festival Calendar</span>
+                            <span class="festival-count">3 upcoming</span>
+                        </div>
+                        <div class="festival-list">
+                            <div class="festival-event upcoming">
+                                <div class="festival-date">Sep 1</div>
+                                <div class="festival-details">
+                                    <div class="festival-name">Vinayaka Chaturthi</div>
+                                    <div class="festival-impact high">High Impact (+60%)</div>
+                                </div>
+                                <div class="festival-days">2 days</div>
+                            </div>
+                            <div class="festival-event">
+                                <div class="festival-date">Sep 17</div>
+                                <div class="festival-details">
+                                    <div class="festival-name">Onam</div>
+                                    <div class="festival-impact medium">Medium Impact (+40%)</div>
+                                </div>
+                                <div class="festival-days">18 days</div>
+                            </div>
+                            <div class="festival-event">
+                                <div class="festival-date">Oct 2</div>
+                                <div class="festival-details">
+                                    <div class="festival-name">Gandhi Jayanti</div>
+                                    <div class="festival-impact medium">Medium Impact (+30%)</div>
+                                </div>
+                                <div class="festival-days">33 days</div>
+                            </div>
+                        </div>
+                        <div class="festival-preparation">
+                            <h4>Preparation Checklist</h4>
+                            <div class="checklist">
+                                <label class="checklist-item">
+                                    <input type="checkbox" checked>
+                                    <span>Extra buses scheduled</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" checked>
+                                    <span>Staff overtime approved</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox">
+                                    <span>Route diversions planned</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Market Day Integration -->
+                    <div class="external-card market">
+                        <div class="card-header">
+                            <span class="card-icon">🏪</span>
+                            <span class="card-title">Market Day Schedule</span>
+                            <span class="market-status active">Active Today</span>
+                        </div>
+                        <div class="market-schedule">
+                            <div class="route-market">
+                                <div class="route-name">Tiruppur - Pollachi</div>
+                                <div class="market-days">
+                                    <span class="market-day active">Mon</span>
+                                    <span class="market-day">Thu</span>
+                                </div>
+                                <div class="market-impact">+25% demand</div>
+                            </div>
+                            <div class="route-market">
+                                <div class="route-name">Tiruppur - Coimbatore</div>
+                                <div class="market-days">
+                                    <span class="market-day active">Mon</span>
+                                    <span class="market-day">Wed</span>
+                                    <span class="market-day">Sat</span>
+                                </div>
+                                <div class="market-impact">+35% demand</div>
+                            </div>
+                            <div class="route-market">
+                                <div class="route-name">Tiruppur - Salem</div>
+                                <div class="market-days">
+                                    <span class="market-day">Wed</span>
+                                    <span class="market-day">Sat</span>
+                                </div>
+                                <div class="market-impact">+20% demand</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Events Tracker -->
+                    <div class="external-card events">
+                        <div class="card-header">
+                            <span class="card-icon">📅</span>
+                            <span class="card-title">Special Events Tracker</span>
+                            <span class="event-count">2 this week</span>
+                        </div>
+                        <div class="events-list">
+                            <div class="event-item">
+                                <div class="event-date">Aug 31</div>
+                                <div class="event-details">
+                                    <div class="event-name">College Reopening</div>
+                                    <div class="event-location">Multiple Colleges</div>
+                                    <div class="event-impact medium">+20% on Salem route</div>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">Sep 2</div>
+                                <div class="event-details">
+                                    <div class="event-name">Agricultural Fair</div>
+                                    <div class="event-location">Pollachi</div>
+                                    <div class="event-impact high">+45% on Pollachi route</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Environmental Impact -->
+                    <div class="external-card environmental">
+                        <div class="card-header">
+                            <span class="card-icon">🌱</span>
+                            <span class="card-title">Environmental Impact</span>
+                            <span class="impact-score positive">Good</span>
+                        </div>
+                        <div class="environmental-metrics">
+                            <div class="env-metric">
+                                <div class="metric-label">Daily CO2 Reduction</div>
+                                <div class="metric-value">2,450 kg</div>
+                                <div class="metric-comparison">vs private vehicles</div>
+                            </div>
+                            <div class="env-metric">
+                                <div class="metric-label">Fuel Efficiency</div>
+                                <div class="metric-value">15.8 km/l</div>
+                                <div class="metric-comparison">+2.3% this month</div>
+                            </div>
+                            <div class="env-metric">
+                                <div class="metric-label">Passenger/km</div>
+                                <div class="metric-value">0.85</div>
+                                <div class="metric-comparison">Optimal range</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Schedule Approval Modal -->
+    <div id="approval-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Schedule Approved Successfully</h3>
+                <button class="modal-close" id="close-approval-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-animation">✅</div>
+                <p>Tomorrow's optimized schedule has been approved and deployed. The new schedule will be active from 05:00 AM tomorrow.</p>
+                <div class="deployment-details">
+                    <div class="detail-item">
+                        <span class="label">Total Buses:</span>
+                        <span class="value">52</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Expected Savings:</span>
+                        <span class="value">₹18,500</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Deployment Time:</span>
+                        <span class="value">04:45 AM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--primary" id="confirm-deployment">Confirm Deployment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
